@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOB Processor</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <div class="app-title">LOB Processor</div>
+            <div class="stats-bar">
+                <button class="btn-danger" id="clear-all-data">🗑️ Clear All Data</button>
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Day/Night Mode">
+                    <span>☀️</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar left">
+                <div class="sidebar-tabs">
+                    <div class="tab-header">
+                        <button class="tab-link active" data-tab="manual-input-tab">Input</button>
+                        <button class="tab-link" data-tab="lobs-tab">LOBs</button>
+                        <button class="tab-link" data-tab="options-tab">Options</button>
+                    </div>
+
+                    <div id="manual-input-tab" class="tab-content active">
+                        <div class="form-section">
+                            <h4>File Upload</h4>
+                            <div class="input-group">
+                                <label>Upload LOB File</label>
+                                <input type="file" id="fileInput">
+                                <button id="processButton" class="btn-primary">Process File</button>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>Manual Input</h4>
+                            <div class="input-group">
+                                <label>Latitude</label>
+                                <input type="number" id="latInput" placeholder="e.g., 51.5074">
+                            </div>
+                            <div class="input-group">
+                                <label>Longitude</label>
+                                <input type="number" id="lonInput" placeholder="e.g., -0.1278">
+                            </div>
+                            <div class="input-group">
+                                <label>Bearing</label>
+                                <input type="number" id="bearingInput" placeholder="e.g., 45">
+                            </div>
+                            <!-- New input for LOB Length -->
+                            <div class="input-group">
+                                <label>LOB Length (km)</label>
+                                <input type="number" id="lobLengthInput" value="10" min="1" step="1">
+                            </div>
+                            <button id="addLobButton" class="btn-secondary">Add LOB</button>
+                            <button id="drawLobButton" class="btn-secondary">Draw LOB</button>
+                            <button id="processManualButton" class="btn-primary">Process Manual LOBs</button>
+                        </div>
+                    </div>
+
+                    <div id="lobs-tab" class="tab-content">
+                        <div class="form-section">
+                            <h4>LOBs</h4>
+                            <div id="lob-list" class="lob-list-container"></div>
+                        </div>
+                    </div>
+
+                    <div id="options-tab" class="tab-content">
+                        <div class="form-section">
+                            <h4>Map Settings</h4>
+                            <div class="input-group">
+                                <label>Map Style</label>
+                                <select id="map-style-select">
+                                    <option value="carto-dark">CartoDB Dark</option>
+                                    <option value="carto-light">CartoDB Light</option>
+                                    <option value="osm" selected>OpenStreetMap</option>
+                                    <option value="satellite">Satellite</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Confidence Level</label>
+                                <select id="confidence-level-select">
+                                    <option value="2.4477">95%</option>
+                                    <option value="1.6449">90%</option>
+                                    <option value="3.0348">99%</option>
+                                </select>
+                            </div>
+                            <!-- New input for Max LOB Intersection Distance -->
+                            <div class="input-group">
+                                <label>Max LOB Intersection Distance (km)</label>
+                                <input type="number" id="max-lob-distance" value="300" min="10" step="10">
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <h4>Display Options</h4>
+                            <div class="input-group">
+                                <label><input type="checkbox" id="toggle-lobs" checked> Show LOBs</label>
+                            </div>
+                            <div class="input-group">
+                                <label><input type="checkbox" id="toggle-markers" checked> Show Markers</label>
+                            </div>
+                            <div class="input-group">
+                                <label><input type="checkbox" id="toggle-intersections" checked> Show Intersections</label>
+                            </div>
+                            <div class="input-group">
+                                <label><input type="checkbox" id="toggle-ellipse" checked> Show Error Ellipse</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>Results</h4>
+                    <textarea id="results" rows="10"></textarea>
+                    <button id="exportButton" class="btn-secondary">Export Results</button>
+                    <button id="exportKmlButton" class="btn-secondary">Export KML</button>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

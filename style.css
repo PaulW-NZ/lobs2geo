@@ -1,0 +1,333 @@
+/* Define new variable */
+:root {
+    --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    --text-primary: #fff;
+    --text-secondary: #a8d8ff;
+    --ui-bg: rgba(255, 255, 255, 0.1);
+    --ui-border: rgba(255, 255, 255, 0.2);
+    --accent-primary: #4facfe;
+    --selection-bg: rgba(79, 172, 254, 0.25);
+    --selection-border: #4facfe;
+    --marker-colour: #f39c12;
+    --ui-bg-option: #2a5298; /* Dark blue for dark mode options */
+}
+
+.light-mode {
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --text-primary: #333;
+    --text-secondary: #555;
+    --ui-bg: rgba(255, 255, 255, 0.8);
+    --ui-border: rgba(0, 0, 0, 0.1);
+    --accent-primary: #007bff;
+    --selection-bg: rgba(0, 123, 255, 0.25);
+    --selection-border: #007bff;
+    --marker-colour: #ffc107;
+    --ui-bg-option: #f9f9f9; /* Light gray for light mode options */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; } /* ... existing styles ... */
+
+.input-group select option {
+    background-color: var(--ui-bg-option);
+    color: var(--text-primary);
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0; /* Remove padding from body */
+    user-select: none;
+    display: flex; /* Added for main app layout */
+    flex-direction: column; /* Added for main app layout */
+}
+
+.container {
+    margin: 0 auto; 
+    background: var(--ui-bg); 
+    backdrop-filter: blur(10px);
+    border-radius: 20px; 
+    border: 1px solid var(--ui-border); 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; /* Fill full viewport height */
+    flex-grow: 1; /* Ensure container fills available space */
+    width: 100%; /* Ensure it takes full width */
+}
+
+.top-bar {
+    background: rgba(0, 0, 0, 0.2); 
+    padding: 10px 25px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.app-title {
+    font-size: 1.4em; 
+    font-weight: 700; 
+    background: linear-gradient(45deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    display: inline-block;
+}
+
+.stats-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.sidebar {
+    width: 350px; 
+    background: rgba(0, 0, 0, 0.1);
+    border-right: 1px solid var(--ui-border);
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.map-container {
+    flex-grow: 1;
+    background-color: #e0e0e0; /* Fallback */
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Form Elements */
+.form-section h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--accent-primary);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--text-secondary);
+}
+
+.input-group input[type="file"],
+.input-group input[type="number"],
+.input-group select,
+.input-group textarea {
+    background: var(--ui-bg); 
+    border: 1px solid var(--ui-border); 
+    color: var(--text-primary);
+    padding: 6px 10px; 
+    border-radius: 8px; 
+    font-size: 0.85em;
+    width: calc(100% - 10px); /* Adjusted for padding */
+    box-sizing: border-box;
+}
+
+.input-group select:focus, 
+.input-group input[type=number]:focus, 
+.input-group textarea:focus {
+    outline: none; 
+    border-color: var(--accent-primary); 
+    box-shadow: 0 0 0 3px var(--selection-bg);
+}
+
+.input-group textarea {
+    width: 100%; /* Make it fill the available width */
+    resize: vertical;
+}
+
+/* Buttons */
+.button, .btn-primary, .btn-secondary, .btn-danger {
+    color: white; 
+    padding: 8px 16px; 
+    border: none; 
+    border-radius: 12px; 
+    cursor: pointer;
+    font-weight: 600; 
+    font-size: 0.9em; 
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.4); /* Darker background for general buttons */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-right: 5px; /* Keep some margin */
+}
+
+.button:hover:not(:disabled), 
+.btn-primary:hover:not(:disabled), 
+.btn-secondary:hover:not(:disabled), 
+.btn-danger:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.button:disabled, 
+.btn-primary:disabled, 
+.btn-secondary:disabled, 
+.btn-danger:disabled {
+    background: #555;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--accent-primary), #00f2fe);
+    box-shadow: 0 4px 15px var(--selection-bg);
+}
+
+.btn-secondary {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.btn-danger {
+    background: linear-gradient(45deg, #dc3545, #ff6b6b);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+}
+
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+    color: var(--text-primary); /* Use theme variable */
+}
+
+/* Tab Styling */
+.sidebar-tabs {
+    margin-top: 15px;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.tab-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.tab-link {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--ui-border);
+    border-bottom: none;
+    background: var(--ui-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    text-align: center;
+    border-top-left-radius: 8px; /* Increased radius */
+    border-top-right-radius: 8px; /* Increased radius */
+    transition: all 0.2s ease;
+}
+
+.tab-link:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.tab-link.active {
+    background: var(--bg-gradient); /* Active tab uses gradient */
+    border-bottom: 1px solid transparent; /* Hide bottom border */
+    color: var(--text-primary);
+    font-weight: bold;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for active tab */
+}
+
+.tab-content {
+    padding-top: 10px;
+    border-top: 1px solid var(--ui-border);
+}
+
+/* LOB List */
+.lob-list-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--ui-border);
+    padding: 10px;
+    border-radius: 8px; /* Increased radius */
+    background: var(--ui-bg);
+}
+
+.lob-list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lob-list-container li {
+    margin-bottom: 5px;
+}
+
+.lob-list-container label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.lob-list-container input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--accent-primary); /* Style checkbox */
+}
+
+/* Results Textarea Styling to match LOBs list */
+#results {
+    padding: 10px; /* Match lob-list-container padding */
+    font-size: 0.9em; /* Slightly larger than 0.85em for better readability in results */
+    line-height: 1.4; /* Improve readability */
+    box-sizing: border-box; /* Ensure padding is included in width */
+    width: 100%; /* Explicitly set width to 100% */
+}
+/* LOB Table Styling */
+.lob-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.lob-table th, .lob-table td {
+    border: 1px solid var(--ui-border);
+    padding: 5px;
+    text-align: left;
+}
+
+.lob-table th {
+    background-color: rgba(0, 0, 0, 0.2); /* Darker background for headers */
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+.lob-table tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05); /* Subtle stripe for readability */
+}
+
+.lob-table tbody tr:hover {
+    background-color: var(--selection-bg); /* Highlight on hover */
+}
+
+.lob-table input[type="checkbox"] {
+    margin: 0; /* Remove default margin */
+}
+
+/* Leaflet Map Overrides */
+.leaflet-control-container .leaflet-control-attribution {
+    background: rgba(0, 0, 0, 0.7); /* Dark background for attribution */
+    color: var(--text-primary);
+}
+
+/* Map filter for dark mode - not needed with themed base layers */
+/* #map.dark-mode-filter {
+    filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(100%);
+} */
